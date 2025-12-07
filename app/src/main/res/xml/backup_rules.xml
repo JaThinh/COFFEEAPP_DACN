@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data-extraction-rules>
+    <!--
+       Sample backup rules file; uncomment and customize as necessary.
+       See https://developer.android.com/guide/topics/data/autobackup
+       for details.
+       Note: This file is ignored for devices older than API 31
+       See https://developer.android.com/about/versions/12/backup-restore
+    -->
+    <cloud-backup>
+        <!-- TODO: Add cloud backup rules here -->
+    </cloud-backup>
+    <device-transfer>
+        <!-- TODO: Add device-to-device transfer rules here -->
+    </device-transfer>
+</data-extraction-rules>

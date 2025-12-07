@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <application
+        android:name=".MyApplication"
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.MyApplication"
+        android:enableOnBackInvokedCallback="true"
+        tools:targetApi="31"
+        tools:replace="android:theme">
+        
+        <!-- Splash & Main -->
+        <activity
+            android:name=".UI.SplashActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Intro Activity -->
+        <activity
+            android:name=".UI.IntroActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        
+        <activity
+            android:name=".UI.Home.HomeActivity"
+            android:exported="false" />
+        
+        <!-- Login & Auth -->
+        <activity
+            android:name=".UI.Login.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UI.Login.RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UI.Login.ForgotPasswordActivity"
+            android:exported="false" />
+            
+        <!-- Profile & Account -->
+        <activity
+            android:name=".UI.profile.ProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UI.profile.EditProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UI.profile.AddressActivity"
+            android:exported="false" />
+            
+        <!-- Product & Cart -->
+        <activity
+            android:name=".UI.product.ProductListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UI.Detail.ProductDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UI.Cart.CartActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UI.Cart.QRActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UI.Cart.BillActivity"
+            android:exported="false" />
+            
+        <!-- Order & Checkout -->
+        <activity
+            android:name=".UI.checkout.CheckoutActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UI.checkout.OrderConfirmationActivity"
+            android:exported="false" />
+        <activity 
+            android:name=".UI.order.OrderSuccessActivity" 
+            android:exported="false" />
+        <activity
+            android:name=".UI.order.OrderHistoryActivity"
+            android:exported="false" />
+            
+        <!-- Support & Admin -->
+        <activity
+            android:name=".UI.support.ChatbotActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UI.support.SupportActivity"
+            android:exported="false" />
+            
+        <!-- ADMIN ACTIVITIES -->
+        <activity
+            android:name=".UI.admin.AdminHomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UI.admin.AdminDashboardActivity"
+            android:exported="false" />
+            
+        <!-- ADMIN FUNCTIONALITIES -->
+        <activity
+            android:name=".UI.admin.ManageProductsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UI.admin.ManageOrdersActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UI.admin.AdminCategoryListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UI.admin.ManageUsersActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UI.admin.ManageBannersActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UI.admin.AdminOrdersActivity"
+            android:exported="false" />
+            
+        <!-- Activity Thêm/Sửa sản phẩm -->
+        <activity
+            android:name=".UI.admin.AddEditProductActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"/>
+        
+        <!-- Updated AdminOrderDetailActivity package path -->
+        <activity
+            android:name=".UI.admin.AdminOrderDetailActivity"
+            android:exported="false" />
+            
+        <activity
+            android:name=".UI.qr.QRCodeActivity"
+            android:exported="false" />
+
+        <service
+            android:name=".service.NotificationListenerService"
+            android:exported="false"
+            android:label="@string/app_name"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService" />
+            </intent-filter>
+        </service>
+    </application>
+
+</manifest>

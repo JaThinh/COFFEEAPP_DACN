@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Aura Cafe</string>
+    <string name="app_name_branded">☕ Aura Cafe ☕</string>
+    <string name="quantity_display">x%d</string>
+    <string name="category_name_hint">Nhập tên danh mục</string>
+    <string name="add_category_button">Thêm danh mục</string>
+    <string name="update_category_button">Cập nhật danh mục</string>
+    
+    <!-- Google Sign-In Web Client ID -->
+    <string name="default_web_client_id">788755756593-tuvo26hj33pupse6a6dv8kqrjqohnvn4.apps.googleusercontent.com</string>
+
+    <string name="banner_image_description">Mô tả ảnh banner</string>
+
+    <!-- Home Screen Strings -->
+    <string name="action_more">Tùy chọn thêm</string>
+    <string name="action_notification">Thông báo</string>
+    <string name="action_favorite">Yêu thích</string>
+    <string name="search_hint">Tìm kiếm sản phẩm...</string>
+    <string name="category_title">Danh mục</string>
+    <string name="popular_title">Phổ biến</string>
+    <string name="view_all">Xem tất cả</string>
+    <string name="cart_description">Giỏ hàng</string>
+    <string name="chatbot_description">Chatbot AI</string>
+</resources>

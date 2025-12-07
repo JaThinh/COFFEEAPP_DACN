@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F5F5F5"
+    tools:context=".UI.profile.ProfileActivity">
+
+    <!-- AppBar -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="0dp">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#6D4C41"
+            app:title="Hồ sơ của tôi"
+            app:titleTextColor="@android:color/white"
+            app:titleCentered="true"/>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- 1. PROFILE CARD -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="@android:color/white"
+                android:layout_marginBottom="20dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/iv_profile_avatar"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/ic_person"
+                        app:civ_border_width="2dp"
+                        app:civ_border_color="#E0E0E0"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@id/iv_profile_avatar"
+                        android:layout_toStartOf="@id/btn_edit_profile"
+                        android:layout_marginStart="16dp"
+                        android:layout_centerVertical="true"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_profile_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Tên Người Dùng"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:textColor="@android:color/black"/>
+
+                        <TextView
+                            android:id="@+id/tv_profile_email"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="email@example.com"
+                            android:textSize="13sp"
+                            android:textColor="#757575"
+                            android:layout_marginTop="4dp"/>
+
+                        <TextView
+                            android:id="@+id/tv_profile_phone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0123456789"
+                            android:textSize="13sp"
+                            android:textColor="#757575"
+                            android:visibility="gone"
+                            tools:visibility="visible"
+                            android:layout_marginTop="2dp"/>
+                        
+                        <TextView
+                            android:id="@+id/tv_profile_address"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Địa chỉ..."
+                            android:textSize="13sp"
+                            android:textColor="#757575"
+                            android:maxLines="1"
+                            android:ellipsize="end"
+                            android:visibility="gone"
+                            tools:visibility="visible"
+                            android:layout_marginTop="2dp"/>
+                    </LinearLayout>
+
+                    <ImageButton
+                        android:id="@+id/btn_edit_profile"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:padding="12dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:src="@drawable/ic_edit"
+                        android:tint="#6D4C41"
+                        android:contentDescription="Chỉnh sửa hồ sơ"
+                        tools:ignore="UseAppTint"/>
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- 2. MENU ACTIONS CARD -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="@android:color/white"
+                android:layout_marginBottom="30dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- History -->
+                    <TextView
+                        android:id="@+id/btn_my_orders"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        android:gravity="center_vertical"
+                        android:textSize="15sp"
+                        android:textColor="#333333"
+                        android:background="?attr/selectableItemBackground"
+                        android:drawablePadding="16dp"
+                        app:drawableStartCompat="@drawable/ic_orders"
+                        app:drawableEndCompat="@drawable/ic_chevron_right"
+                        android:text="Lịch sử đơn hàng"/>
+
+                    <View 
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#EEEEEE"
+                        android:layout_marginStart="56dp"
+                        android:layout_marginEnd="16dp"/>
+                    
+                    <!-- Address Book (Thêm mới ID) -->
+                    <TextView
+                        android:id="@+id/btnAddressBook"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        android:gravity="center_vertical"
+                        android:textSize="15sp"
+                        android:textColor="#333333"
+                        android:background="?attr/selectableItemBackground"
+                        android:drawablePadding="16dp"
+                        app:drawableStartCompat="@android:drawable/ic_menu_mapmode"
+                        app:drawableEndCompat="@drawable/ic_chevron_right"
+                        app:drawableTint="#6D4C41"
+                        android:text="Sổ địa chỉ"/>
+                        
+                    <View 
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#EEEEEE"
+                        android:layout_marginStart="56dp"
+                        android:layout_marginEnd="16dp"/>
+
+
+                    <View 
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#EEEEEE"
+                        android:layout_marginStart="56dp"
+                        android:layout_marginEnd="16dp"/>
+
+                    <!-- Change Password -->
+                    <TextView
+                        android:id="@+id/btn_change_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        android:gravity="center_vertical"
+                        android:textSize="15sp"
+                        android:textColor="#333333"
+                        android:background="?attr/selectableItemBackground"
+                        android:drawablePadding="16dp"
+                        app:drawableStartCompat="@drawable/ic_lock"
+                        app:drawableEndCompat="@drawable/ic_chevron_right"
+                        android:text="Đổi mật khẩu"/>
+                        
+                    <View 
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#EEEEEE"
+                        android:layout_marginStart="56dp"
+                        android:layout_marginEnd="16dp"/>
+
+                    <!-- Support / Help -->
+                    <TextView
+                        android:id="@+id/btn_support"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        android:gravity="center_vertical"
+                        android:textSize="15sp"
+                        android:textColor="#333333"
+                        android:background="?attr/selectableItemBackground"
+                        android:drawablePadding="16dp"
+                        app:drawableStartCompat="@android:drawable/ic_menu_help"
+                        app:drawableEndCompat="@drawable/ic_chevron_right"
+                        app:drawableTint="#6D4C41"
+                        android:text="Trung tâm trợ giúp"/>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- 3. LOGOUT BUTTON -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_logout"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Đăng xuất"
+                android:textColor="#F44336"
+                app:strokeColor="#F44336"
+                app:icon="@drawable/ic_logout" 
+                app:iconTint="#F44336"
+                android:padding="12dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Phiên bản 1.0.0"
+                android:gravity="center"
+                android:textColor="#BDBDBD"
+                android:textSize="12sp"
+                android:layout_marginTop="16dp"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/progress_bar_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
+</LinearLayout>

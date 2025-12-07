@@ -1,0 +1,29 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.MyApplication" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your dark theme here. -->
+        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+    </style>
+
+    <!-- Style for the slider corners -->
+    <style name="ShapeAppearance.App.CornerSize16dp" parent="">
+        <item name="cornerSize">16dp</item>
+    </style>
+
+    <!-- Custom Styles for Product Detail Screen (Copied for consistency) -->
+    <style name="Widget.App.Chip" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/chip_background_color_selector</item>
+        <item name="android:textColor">@color/chip_text_color_selector</item>
+    </style>
+
+    <style name="Widget.App.QuantityButton" parent="Widget.AppCompat.ImageButton">
+        <item name="android:background">@drawable/quantity_background</item>
+        <item name="android:padding">8dp</item>
+    </style>
+
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/grey</item>
+        <item name="colorControlActivated">@color/premium_accent</item>
+    </style>
+
+</resources>

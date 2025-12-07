@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5ECD7">
+
+    <!-- Header -->
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Quay lại"
+        android:src="@drawable/ic_arrow_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="serif"
+        android:text="Chi Tiết Đơn Hàng"
+        android:textColor="#4E342E"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/btnBack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/btnBack" />
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/btnBack"
+        app:layout_constraintBottom_toBottomOf="parent" 
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="100dp" 
+            android:clipToPadding="false"
+            android:padding="24dp">
+
+            <!-- Thông tin đơn hàng -->
+            <TextView 
+                style="@style/VintageTitleText" 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mã đơn hàng" />
+            <TextView
+                android:id="@+id/tvOrderId"
+                style="@style/VintageInfoText.Bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="#ABC123XYZ" />
+
+            <TextView 
+                style="@style/VintageTitleText" 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp" 
+                android:text="Ngày đặt" />
+            <TextView
+                android:id="@+id/tvOrderDate"
+                style="@style/VintageInfoText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="15/05/2024 10:30" />
+
+            <!-- Thông tin khách hàng -->
+            <TextView 
+                style="@style/VintageTitleText" 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp" 
+                android:text="Thông tin khách hàng" />
+            <TextView
+                android:id="@+id/tvCustomerName"
+                style="@style/VintageInfoText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Nguyễn Văn A" />
+            <TextView
+                android:id="@+id/tvCustomerPhone"
+                style="@style/VintageInfoText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="0987654321" />
+            <TextView
+                android:id="@+id/tvCustomerAddress"
+                style="@style/VintageInfoText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="123 Đường ABC, Phường XYZ, Quận 1, TP. HCM" />
+
+            <!-- Danh sách sản phẩm -->
+            <TextView 
+                style="@style/VintageTitleText" 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp" 
+                android:text="Sản phẩm" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvOrderItems"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                tools:itemCount="3"
+                tools:listitem="@layout/item_checkout_summary"/>
+
+            <!-- Tổng kết -->
+            <View
+                style="@style/VintageDivider"
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
+            
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView android:id="@+id/tvTotalLabel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Tổng cộng" android:textSize="16sp" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
+                <TextView android:id="@+id/tvOrderTotal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="22sp" android:textStyle="bold" android:textColor="#C62828" tools:text="250.000 đ" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Vùng hành động (Chung cho User và Admin) -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/bottomActionLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:cardElevation="8dp"
+        app:cardBackgroundColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Nút Đã hoàn thành (cho User, khi đơn đã giao thành công hoặc muốn xác nhận) -->
+            <Button
+                android:id="@+id/btnCompleteOrder"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="Đã hoàn thành"
+                android:layout_marginTop="8dp"
+                android:backgroundTint="#4CAF50"
+                android:visibility="gone"
+                tools:visibility="visible"/>
+
+            <!-- Nút Hủy đơn hàng (cho User, nếu đủ điều kiện) -->
+            <Button
+                android:id="@+id/btnCancelOrder"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="Hủy đơn hàng"
+                android:layout_marginTop="8dp"
+                android:backgroundTint="@color/red"
+                android:visibility="gone" 
+                tools:visibility="visible"/>
+
+            <!-- Nút Đặt lại (cho User) -->
+            <Button
+                android:id="@+id/btnReorder"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="Đặt lại đơn hàng"
+                android:layout_marginTop="8dp"
+                android:visibility="gone" 
+                tools:visibility="visible"/>
+
+            <!-- Vùng của Admin (sẽ bị ẩn cho user) -->
+            <LinearLayout
+                android:id="@+id/adminPanel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cập nhật trạng thái"
+                    android:textSize="14sp"
+                    android:textColor="#795548" />
+
+                <Spinner
+                    android:id="@+id/spinnerStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="8dp"/>
+
+                <Button
+                    android:id="@+id/btnUpdateStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginTop="16dp"
+                    android:text="Lưu thay đổi"
+                    android:backgroundTint="#8B5E3C"/>
+            </LinearLayout>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <ProgressBar
+        android:id="@+id/progressBarDetail"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

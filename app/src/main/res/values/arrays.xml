@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="order_status_array">
+        <item>Đang xử lý</item>
+        <item>Hoàn thành</item>
+        <item>Đã hủy</item>
+    </string-array>
+</resources>

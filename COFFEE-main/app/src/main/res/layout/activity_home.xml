@@ -1,0 +1,517 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#F5F5DC">
+
+
+    <ScrollView
+        android:id="@+id/main_content_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_navigation_bar">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#E8DAB2"
+                android:padding="16dp">
+
+                <!-- TRANG CHỦ  -->
+                <TextView
+                    android:id="@+id/tvTitleHome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TRANG CHỦ"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:textColor="#5C4033"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                android:gravity="center_horizontal">
+
+                <!--Banner-->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="4dp"
+                    app:cardUseCompatPadding="true">
+
+                    <androidx.viewpager2.widget.ViewPager2
+                        android:id="@+id/bannerViewPager"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:clipToPadding="false"
+                        android:background="@android:color/transparent"/>
+                </androidx.cardview.widget.CardView>
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/bannerIndicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="8dp"
+                    app:tabIndicator="@drawable/tab_indicator"
+                    app:tabIndicatorGravity="center"
+                    app:tabIndicatorFullWidth="false"
+                    app:tabIndicatorHeight="2dp"
+                    app:tabRippleColor="@android:color/transparent"
+                    app:tabTextColor="@android:color/transparent"
+                    app:tabSelectedTextColor="@android:color/transparent"
+                    android:background="@android:color/transparent"/>
+            </LinearLayout>
+
+            <!--Tiêu đề lựa choọn món-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="#F5F5DC"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="LỰA CHỌN MÓN YÊU THÍCH"
+                    android:textSize="20sp"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textColor="#5C4033"
+                    android:fontFamily="sans-serif-medium"
+                    android:paddingBottom="16dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:weightSum="4"
+                    android:padding="8dp">
+
+                    <!--Coffee-->
+                    <LinearLayout
+                        android:id="@+id/coffee_category"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:background="@drawable/bg_vintage_input"
+                        android:layout_margin="4dp">
+
+                        <ImageView
+                            android:id="@+id/imgCoffee"
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"
+                            android:src="@drawable/ic_coffee"
+                            android:scaleType="centerCrop"
+                            android:background="@drawable/bg_circle_beige" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="COFFEE"
+                            android:textColor="#5C4033"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:paddingTop="8dp" />
+                    </LinearLayout>
+
+                    <!--Juice-->
+                    <LinearLayout
+                        android:id="@+id/juice_category"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:background="@drawable/bg_vintage_input"
+                        android:layout_margin="4dp">
+
+                        <ImageView
+                            android:id="@+id/imgJuice"
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"
+                            android:src="@drawable/ic_juice"
+                            android:scaleType="centerCrop"
+                            android:background="@drawable/bg_circle_beige" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="JUICE"
+                            android:textColor="#5C4033"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:paddingTop="8dp" />
+                    </LinearLayout>
+
+                    <!--Tea-->
+                    <LinearLayout
+                        android:id="@+id/tea_category"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:background="@drawable/bg_vintage_input"
+                        android:layout_margin="4dp">
+
+                        <ImageView
+                            android:id="@+id/imgTea"
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"
+                            android:src="@drawable/ic_tea"
+                            android:scaleType="centerCrop"
+                            android:background="@drawable/bg_circle_beige" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="TEA"
+                            android:textColor="#5C4033"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:paddingTop="8dp" />
+                    </LinearLayout>
+
+                    <!--Bánh cake-->
+                    <LinearLayout
+                        android:id="@+id/cake_category"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:background="@drawable/bg_vintage_input"
+                        android:layout_margin="4dp">
+
+                        <ImageView
+                            android:id="@+id/imgCake"
+                            android:layout_width="72dp"
+                            android:layout_height="72dp"
+                            android:src="@drawable/ic_cake"
+                            android:scaleType="centerCrop"
+                            android:background="@drawable/bg_circle_beige" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="CAKE"
+                            android:textColor="#5C4033"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:paddingTop="8dp" />
+                    </LinearLayout>
+
+                    <!--Món best seller-->
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Sản Phẩm Yêu Thích"
+                    android:textSize="18sp"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textColor="#3E2723"
+                    android:padding="12dp"
+                    android:layout_marginTop="16dp" /> <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:weightSum="4"
+                android:padding="8dp">
+
+                <!--Nước Cam-->
+                <LinearLayout
+                    android:id="@+id/orange_juice_item"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:background="@drawable/bg_vintage_input"
+                    android:layout_margin="4dp">
+
+                    <ImageView
+                        android:layout_width="72dp"
+                        android:layout_height="72dp"
+                        android:src="@drawable/ic_placeholder1"
+                        android:scaleType="centerCrop"
+                        android:background="@drawable/bg_circle_beige" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ORANGE"
+                        android:textColor="#5C4033"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:paddingTop="8dp" />
+                </LinearLayout>
+
+                <!--Bánh Chocolate-->
+                <LinearLayout
+                    android:id="@+id/choco_cake_item"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:background="@drawable/bg_vintage_input"
+                    android:layout_margin="4dp">
+
+                    <ImageView
+                        android:layout_width="72dp"
+                        android:layout_height="72dp"
+                        android:src="@drawable/ic_placeholder2"
+                        android:scaleType="centerCrop"
+                        android:background="@drawable/bg_circle_beige" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="CAKE"
+                        android:textColor="#5C4033"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:paddingTop="8dp" />
+                </LinearLayout>
+
+                <!--Matcha Ice-->
+                <LinearLayout
+                    android:id="@+id/matcha_ice_item"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:background="@drawable/bg_vintage_input"
+                    android:layout_margin="4dp">
+
+                    <ImageView
+                        android:layout_width="72dp"
+                        android:layout_height="72dp"
+                        android:src="@drawable/ic_placeholder3"
+                        android:scaleType="centerCrop"
+                        android:background="@drawable/bg_circle_beige" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="MATCHA"
+                        android:textColor="#5C4033"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:paddingTop="8dp" />
+                </LinearLayout>
+
+                <!--Bánh cake dotnuts-->
+                <LinearLayout
+                    android:id="@+id/donuts_item"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="8dp"
+                    android:background="@drawable/bg_vintage_input"
+                    android:layout_margin="4dp">
+
+                    <ImageView
+                        android:layout_width="72dp"
+                        android:layout_height="72dp"
+                        android:src="@drawable/ic_placeholder4"
+                        android:scaleType="centerCrop"
+                        android:background="@drawable/bg_circle_beige" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="DONUTS"
+                        android:textColor="#5C4033"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:paddingTop="8dp" />
+                </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!--Câu chuyện thương hiệu-->
+            <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:layout_margin="16dp"
+            android:background="@drawable/bg_vintage_input">
+
+            <TextView
+                android:id="@+id/tvBrandStoryTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🌟 Câu chuyện thương hiệu"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:textColor="#333"
+                android:layout_marginBottom="8dp"/>
+
+            <TextView
+                android:id="@+id/tvBrandStoryContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tại 22 August Coffee, mỗi tách cà phê không chỉ là một thức uống, mà còn là nơi khơi nguồn cảm hứng, sẻ chia kỷ niệm và tận hưởng sự bình yên. Chúng tôi chọn lọc tinh hoa từ những vùng đất cà phê danh tiếng, mang đến hương vị đậm đà và chân thật nhất.\n\nChúng tôi không chỉ pha cà phê – chúng tôi tạo nên không gian để bạn tìm thấy chính mình, nạp lại năng lượng và lưu giữ những khoảnh khắc không quên."
+                android:textSize="14sp"
+                android:lineSpacingExtra="4dp"
+                android:textColor="#444"/>
+        </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+    <LinearLayout
+        android:id="@+id/bottom_navigation_bar"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bg_vintage_input"
+        android:orientation="horizontal"
+        android:paddingHorizontal="12dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:elevation="8dp"
+        android:gravity="center">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="goToHome">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_home"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Trang chủ"
+                android:textSize="12sp"
+                android:textColor="#333333" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="goToCart">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_cart"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Giỏ hàng"
+                android:textSize="12sp"
+                android:textColor="#333333" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="goToSupport">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_help"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hỗ trợ"
+                android:textSize="12sp"
+                android:textColor="#333333" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="goToProfile">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_profile"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hồ sơ"
+                android:textSize="12sp"
+                android:textColor="#333333" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

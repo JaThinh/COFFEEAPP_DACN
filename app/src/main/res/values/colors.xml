@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Premium Coffee Theme Color Palette -->
+    <color name="premium_background">#FAF7F0</color>
+    <color name="premium_text_main">#3E2723</color>
+    <color name="premium_accent">#D97706</color>
+
+    <!-- Primary Brand Colors (Brown Tones) -->
+    <color name="brown_700">#4E342E</color> <!-- Dark, rich coffee brown -->
+    <color name="brown_500">#6D4C41</color> <!-- Main, warm coffee brown -->
+    <color name="brown_200">#A1887F</color> <!-- Lighter brown for accents -->
+
+    <!-- Accent Colors (Amber/Gold Tones) -->
+    <color name="amber_700">#FFA000</color> <!-- Darker, rich amber -->
+    <color name="amber_500">#FFC107</color> <!-- Main accent amber -->
+    <color name="gold">#FFB300</color> <!-- Added for rating star -->
+
+    <!-- Background and Surface Colors -->
+    <color name="cream_bg">#FDF8F2</color> <!-- Warm, off-white background -->
+    <color name="white_surface">#FFFFFF</color> <!-- For cards and dialogs -->
+
+    <!-- Text Colors -->
+    <color name="text_primary">#333333</color> <!-- Dark gray for main text -->
+    <color name="text_secondary">#757575</color> <!-- Lighter gray for subtext -->
+
+    <!-- General Colors (Legacy/Compatibility) -->
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="coffee_brown">@color/brown_500</color>
+    <color name="colorPrimary">@color/brown_500</color>
+
+    <!-- Status Colors for Order History etc. -->
+    <color name="status_completed">#4CAF50</color>  <!-- Green -->
+    <color name="status_processing">#2196F3</color> <!-- Blue -->
+    <color name="status_pending">@color/amber_500</color>
+    <color name="status_cancelled">#F44336</color>  <!-- Red -->
+
+    <!-- Legacy/Alias Colors for Selectors -->
+    <color name="grey">@color/text_secondary</color>
+    <color name="orange">@color/amber_500</color>
+    <color name="orange_500">#FF9800</color>
+    
+    <!-- FIX: Add missing colors from build error -->
+    <color name="purple_500">@color/brown_500</color> <!-- Alias to primary brand color -->
+    <color name="red">#F44336</color>
+
+    <!-- Shimmer placeholder color -->
+    <color name="shimmer_placeholder">#E0E0E0</color>
+    <color name="placeholder_bg">#E0E0E0</color>
+
+    <!-- FIX: Add missing 'green' color as requested -->
+    <color name="green">#4CAF50</color>
+    
+    <!-- Added from error -->
+    <color name="grey_400">#BDBDBD</color>
+
+    <!-- Chat Bubble Colors -->
+    <color name="user_bubble_color">#2196F3</color>
+    <color name="model_bubble_color">#F0F0F0</color> <!-- Light grey for bot messages -->
+
+    <!-- Requested missing colors -->
+    <color name="background_beige">#FDF8F2</color>
+    <color name="green_success">#4CAF50</color>
+
+</resources>

@@ -1,0 +1,33 @@
+<resources>
+
+    <!-- FIX: Define missing styles referenced in layouts -->
+
+    <!-- Style for large titles, using the new font -->
+    <style name="VintageTitleText" parent="Widget.AppCompat.TextView">
+        <item name="android:fontFamily">@font/montserrat_font_family</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+
+    <!-- Base style for informational text -->
+    <style name="VintageInfoText" parent="Widget.AppCompat.TextView">
+        <item name="android:fontFamily">@font/montserrat_font_family</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/text_secondary</item>
+    </style>
+
+    <!-- Bold version of the info text -->
+    <style name="VintageInfoText.Bold">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+    
+    <!-- FIX: Add missing divider style -->
+    <style name="VintageDivider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">#1A000000</item> <!-- A light black for separation -->
+    </style>
+
+</resources>

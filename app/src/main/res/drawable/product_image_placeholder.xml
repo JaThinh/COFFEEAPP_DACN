@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Background color -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/placeholder_bg"/>
+        </shape>
+    </item>
+    <!-- Centered icon -->
+    <item
+        android:drawable="@drawable/ic_coffee"
+        android:gravity="center"/>
+</layer-list>

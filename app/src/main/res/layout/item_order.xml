@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="8dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="4dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" 
+        android:padding="16dp"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/ivProductThumbnail" 
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:scaleType="centerCrop"
+            tools:src="@drawable/ic_coffee_2"
+            android:contentDescription="Hình ảnh sản phẩm" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="16dp"
+            android:orientation="vertical">
+
+            <!-- Changed to display Product Name instead of Order ID -->
+            <TextView
+                android:id="@+id/tvOrderId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                tools:text="1. Cà phê sữa đá"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tvOrderDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                tools:text="10:30, 25/05/2024"
+                android:textSize="12sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvOrderTotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textColor="?attr/colorPrimary"
+                    tools:text="150.000 ₫"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tvOrderStatus"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:textStyle="bold"
+                    tools:text="Đang xử lý"
+                    tools:textColor="@android:color/holo_orange_dark"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="end"
+                android:orientation="horizontal">
+
+                <!-- Nút Xác nhận hoàn thành mới -->
+                <Button
+                    android:id="@+id/btnConfirmCompleted"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="Xác nhận hoàn thành"
+                    android:textSize="12sp"
+                    android:textColor="@android:color/white"
+                    app:backgroundTint="#4CAF50"
+                    android:layout_marginEnd="8dp"
+                    android:visibility="gone"
+                    android:textAllCaps="false"
+                    style="?android:attr/borderlessButtonStyle"/>
+
+                <Button
+                    android:id="@+id/btnCancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="Hủy"
+                    android:textSize="12sp"
+                    android:textColor="@android:color/white"
+                    app:backgroundTint="#F44336"
+                    android:layout_marginEnd="8dp"
+                    android:visibility="gone"
+                    android:textAllCaps="false"
+                    style="?android:attr/borderlessButtonStyle"/>
+
+                <Button
+                    android:id="@+id/btnReorder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="Mua lại"
+                    android:textSize="12sp"
+                    android:textColor="@android:color/white"
+                    app:backgroundTint="?attr/colorPrimary"
+                    android:visibility="gone"
+                    android:textAllCaps="false"
+                    style="?android:attr/borderlessButtonStyle"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

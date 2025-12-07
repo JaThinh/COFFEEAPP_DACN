@@ -1,0 +1,151 @@
+package com.example.myapplication.UI.product;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import com.example.myapplication.R;
+import com.example.myapplication.UI.Detail.ProductDetailActivity;
+import com.example.myapplication.adapter.ProductAdapter;
+import com.example.myapplication.manager.CartManager;
+import com.example.myapplication.model.CartItem;
+import com.example.myapplication.model.Product;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+public class ProductListActivity extends AppCompatActivity implements ProductAdapter.OnProductClickListener {
+
+    private RecyclerView recyclerView;
+    private ProductAdapter adapter;
+    private List<Product> displayedProductList;
+    private List<Product> allProductsFromCategory;
+    private SearchView searchView;
+    private TextView tvToolbarTitle;
+
+    public static final String EXTRA_PRODUCT_LIST = "EXTRA_PRODUCT_LIST";
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_product_list);
+
+        initViews();
+        setupRecyclerView();
+
+        String categoryId = getIntent().getStringExtra("categoryId");
+        String categoryName = getIntent().getStringExtra("categoryName");
+        tvToolbarTitle.setText(categoryName != null ? categoryName : "Sản phẩm");
+
+        // Check if a product list was passed from HomeActivity
+        if (getIntent().hasExtra(EXTRA_PRODUCT_LIST)) {
+            allProductsFromCategory = (List<Product>) getIntent().getSerializableExtra(EXTRA_PRODUCT_LIST);
+            filter("");
+        } else {
+            fetchProducts(categoryId);
+        }
+
+        setupSearchView();
+    }
+
+    private void initViews() {
+        recyclerView = findViewById(R.id.rv_product_list);
+        searchView = findViewById(R.id.searchView);
+        tvToolbarTitle = findViewById(R.id.tv_toolbar_title);
+        findViewById(R.id.iv_back_button).setOnClickListener(v -> onBackPressed());
+    }
+
+    private void setupRecyclerView() {
+        displayedProductList = new ArrayList<>();
+        allProductsFromCategory = new ArrayList<>();
+        adapter = new ProductAdapter(displayedProductList, this);
+
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
+    }
+
+    private void fetchProducts(String categoryId) {
+        DatabaseReference productsRef = FirebaseDatabase.getInstance().getReference("products");
+        productsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                allProductsFromCategory.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Product product = snapshot.getValue(Product.class);
+                    if (product != null) {
+                        if (categoryId == null || categoryId.equalsIgnoreCase("all") || categoryId.equalsIgnoreCase(product.getCategoryId())) {
+                            product.setId(snapshot.getKey());
+                            allProductsFromCategory.add(product);
+                        }
+                    }
+                }
+                filter(""); 
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(ProductListActivity.this, "Lỗi tải sản phẩm", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void setupSearchView() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filter(newText);
+                return true;
+            }
+        });
+    }
+
+    private void filter(String text) {
+        displayedProductList.clear();
+        if (text.isEmpty()) {
+            displayedProductList.addAll(allProductsFromCategory);
+        } else {
+            for (Product item : allProductsFromCategory) {
+                if (item.getName().toLowerCase().contains(text.toLowerCase())) {
+                    displayedProductList.add(item);
+                }
+            }
+        }
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onProductClick(Product product, ImageView sharedImageView) {
+        Intent intent = new Intent(this, ProductDetailActivity.class);
+        intent.putExtra(ProductDetailActivity.EXTRA_PRODUCT, product);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onAddToCartClick(Product product) {
+        // This part needs careful handling as product might not have a valid ID
+        Toast.makeText(this, "Đã thêm " + product.getName() + " vào giỏ hàng", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onFavoriteClick(Product product, boolean isFavorite) {
+        String message = isFavorite ? product.getName() + " đã được thêm vào yêu thích" : product.getName() + " đã bị xóa khỏi yêu thích";
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+}

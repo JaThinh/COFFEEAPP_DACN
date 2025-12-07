@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/story_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lineSpacingExtra="6dp"
+        android:textColor="@color/text_secondary"
+        android:textSize="16sp"
+        android:text="Hạt Robusta rang đậm, mang hương vị truyền thống, đậm đà, hậu vị ngọt nhẹ của sô-cô-la. Từ nông trại Cầu Đất, Đà Lạt." />
+
+</LinearLayout>

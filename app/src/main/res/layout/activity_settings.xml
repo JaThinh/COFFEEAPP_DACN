@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FDF8F2"
+    tools:context=".UI.settings.SettingsActivity">
+
+    <!-- Toolbar -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@android:color/transparent"
+        app:navigationIcon="@drawable/ic_back">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Cài đặt"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/coffee_brown" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Account Settings -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tài khoản"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp"
+                android:textColor="@color/coffee_brown"/>
+
+            <TextView
+                android:id="@+id/tv_edit_profile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Chỉnh sửa thông tin"
+                android:padding="12dp"
+                android:background="@drawable/bg_white_rounded"
+                android:drawableEnd="@drawable/ic_arrow_right"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_marginBottom="8dp"/>
+
+            <TextView
+                android:id="@+id/tv_change_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Đổi mật khẩu"
+                android:padding="12dp"
+                android:background="@drawable/bg_white_rounded"
+                android:drawableEnd="@drawable/ic_arrow_right"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_marginBottom="24dp"/>
+
+            <!-- General Settings -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chung"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp"
+                android:textColor="@color/coffee_brown"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/bg_white_rounded"
+                android:padding="12dp"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="8dp">
+                
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Thông báo" />
+                
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switch_notification"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"/>
+            </LinearLayout>
+            
+            <TextView
+                android:id="@+id/tv_language"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ngôn ngữ"
+                android:padding="12dp"
+                android:background="@drawable/bg_white_rounded"
+                android:drawableEnd="@drawable/ic_arrow_right"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_marginBottom="24dp"/>
+
+            <!-- Support -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hỗ trợ"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp"
+                android:textColor="@color/coffee_brown"/>
+
+            <TextView
+                android:id="@+id/tv_help_center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Trung tâm trợ giúp"
+                android:padding="12dp"
+                android:background="@drawable/bg_white_rounded"
+                android:drawableEnd="@drawable/ic_arrow_right"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_marginBottom="8dp"/>
+
+            <TextView
+                android:id="@+id/tv_privacy_policy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Chính sách bảo mật"
+                android:padding="12dp"
+                android:background="@drawable/bg_white_rounded"
+                android:drawableEnd="@drawable/ic_arrow_right"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_marginBottom="8dp"/>
+                
+            <TextView
+                android:id="@+id/tv_about_us"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Về chúng tôi"
+                android:padding="12dp"
+                android:background="@drawable/bg_white_rounded"
+                android:drawableEnd="@drawable/ic_arrow_right"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_marginBottom="24dp"/>
+
+            <Button
+                android:id="@+id/btn_logout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Đăng xuất"
+                android:backgroundTint="#FF4444"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

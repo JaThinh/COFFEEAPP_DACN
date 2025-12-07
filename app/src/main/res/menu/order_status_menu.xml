@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/status_processing"
+        android:title="Đang xử lý" />
+    <item
+        android:id="@+id/status_completed"
+        android:title="Đã hoàn thành" />
+    <item
+        android:id="@+id/status_cancelled"
+        android:title="Đã hủy" />
+</menu>

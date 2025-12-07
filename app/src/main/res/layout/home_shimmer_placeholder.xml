@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="16dp">
+
+    <!-- Banner Placeholder -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/shimmer_placeholder" />
+
+    <!-- Category Tabs Placeholder -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="80dp"
+            android:layout_height="24dp"
+            android:background="@color/shimmer_placeholder" />
+
+        <View
+            android:layout_width="80dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="16dp"
+            android:background="@color/shimmer_placeholder" />
+
+        <View
+            android:layout_width="80dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="16dp"
+            android:background="@color/shimmer_placeholder" />
+    </LinearLayout>
+
+    <!-- Product Grid Placeholder -->
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:columnCount="2"
+        android:orientation="horizontal">
+
+        <include layout="@layout/item_product_shimmer" />
+        <include layout="@layout/item_product_shimmer" />
+        <include layout="@layout/item_product_shimmer" />
+        <include layout="@layout/item_product_shimmer" />
+
+    </GridLayout>
+
+</LinearLayout>
