@@ -35,7 +35,7 @@
 |-------------|-------------------|
 | **IDE** | 🧰 Android Studio |
 | **Ngôn ngữ** | ☕ Java + XML |
-| **Thiết kế UI/UX** | 🎨 Figma |
+| **Thiết kế UI/UX** | 🎨 Android Studio |
 | **Cơ sở dữ liệu** | 💾 Firebase Realtime Database (Lưu trữ Sản phẩm, Đơn hàng, Chat, User) |
 | **Xác thực** | 🔐 Firebase Authentication (Quản lý phiên đăng nhập Admin/User) |
 | **Lưu trữ ảnh** | 🖼️ Firebase Storage (Ảnh sản phẩm, Avatar) |
