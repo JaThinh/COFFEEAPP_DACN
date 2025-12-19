@@ -1,18 +1,18 @@
 package com.example.myapplication.UI.admin;
 
 import android.Manifest;
-import android.content.Intent;
+import android.content.ContentValues;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,15 +32,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 
 public class InvoiceActivity extends AppCompatActivity {
 
     private TextView txtStoreName, txtStoreAddress, txtStorePhone, txtTime;
-    private TextView txtBillId, txtCashier, txtCustomer, txtEmail;
+    private TextView txtBillId, txtCashier, txtCustomer, txtAddress;
     private TextView txtTotal, txtPaymentMethod;
     private RecyclerView recyclerBillItems;
     private View billRootLayout;
+    private Button btnExportInvoice;
 
     private Order currentOrder;
     private BillDetailAdapter adapter;
@@ -51,26 +51,40 @@ public class InvoiceActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bill); // Dùng lại layout activity_bill.xml
+        setContentView(R.layout.activity_invoice);
 
-        // Nhận dữ liệu Order từ Intent
-        if (getIntent().hasExtra("ORDER")) {
-            currentOrder = (Order) getIntent().getSerializableExtra("ORDER");
+        // Nhận dữ liệu Order từ Intent (key: "order")
+        if (getIntent() != null && getIntent().hasExtra("order")) {
+            currentOrder = (Order) getIntent().getSerializableExtra("order");
         } else {
-            Toast.makeText(this, "Không tìm thấy thông tin đơn hàng!", Toast.LENGTH_SHORT).show();
-            finish();
-            return;
+            // Fallback check uppercase "ORDER" just in case
+            if (getIntent() != null && getIntent().hasExtra("ORDER")) {
+                currentOrder = (Order) getIntent().getSerializableExtra("ORDER");
+            } else {
+                Toast.makeText(this, "Không tìm thấy thông tin đơn hàng!", Toast.LENGTH_SHORT).show();
+                finish();
+                return;
+            }
         }
 
         initViews();
         displayOrderData();
         setupRecyclerView();
 
-        // Nút xuất PDF có thể được thêm vào layout hoặc gọi từ menu. 
-        // Ở đây giả sử layout có sẵn nút hoặc sự kiện click vào root layout để demo
-        billRootLayout.setOnClickListener(v -> checkPermissionAndExportPDF());
-        
-        Toast.makeText(this, "Chạm vào hóa đơn để xuất PDF", Toast.LENGTH_LONG).show();
+        btnExportInvoice.setOnClickListener(v -> exportInvoice());
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            saveBitmapToGallery();
+        } else {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        REQUEST_CODE_STORAGE_PERMISSION);
+            } else {
+                saveBitmapToGallery();
+            }
+        }
     }
 
     private void initViews() {
@@ -81,55 +95,41 @@ public class InvoiceActivity extends AppCompatActivity {
         txtBillId = findViewById(R.id.txtBillId);
         txtCashier = findViewById(R.id.txtCashier);
         txtCustomer = findViewById(R.id.txtCustomer);
-        txtEmail = findViewById(R.id.txtEmail);
+        txtAddress = findViewById(R.id.txtAddress);
         txtTotal = findViewById(R.id.txtTotal);
         txtPaymentMethod = findViewById(R.id.txtPaymentMethod);
-        
-        // RecyclerView không có trong layout activity_bill gốc bạn cung cấp (dùng TableLayout).
-        // Tuy nhiên, theo yêu cầu mới, ta cần hiển thị danh sách bằng RecyclerView.
-        // Giải pháp: Thay thế TableLayout bằng RecyclerView trong code XML hoặc tìm ID view phù hợp.
-        // Giả sử bạn đã thay thế TableLayout bằng RecyclerView có id recyclerBillItems trong layout.
-        // Nếu chưa, tôi sẽ ánh xạ tạm vào TableLayout và cần bạn sửa XML, 
-        // hoặc tìm view cha chứa items.
-        
-        // Trong layout bạn gửi, id là layoutItems (TableLayout).
-        // Để hiển thị đúng yêu cầu Recycler, ta cần sửa layout XML. 
-        // Nhưng tôi không được sửa layout XML trong yêu cầu này (chỉ yêu cầu Java).
-        // -> Tôi sẽ tìm id recyclerBillItems giả định layout đã được update.
-        // Nếu không tìm thấy, app sẽ crash. 
-        // FIX: Vì tôi không thể sửa layout XML ở đây, tôi sẽ coi như layoutItems là nơi chứa list.
-        // Nhưng Adapter yêu cầu RecyclerView.
-        // Tốt nhất tôi sẽ tìm RecyclerView, nếu null thì log thông báo.
-        
-        // Để code chạy được với layout hiện tại (chưa có RecyclerView), tôi sẽ add RecyclerView programmatically 
-        // hoặc giả định ID recyclerBillItems tồn tại (bạn cần thêm vào XML).
-        // Vì tôi đã viết file adapter, tôi sẽ ánh xạ RecyclerView.
-        
-        recyclerBillItems = findViewById(R.id.recyclerBillItems); 
-        // Lưu ý: Cần thêm RecyclerView vào activity_bill.xml thay cho TableLayout @id/layoutItems
-        
+
+        recyclerBillItems = findViewById(R.id.recyclerBillItems);
         billRootLayout = findViewById(R.id.billRootLayout);
+        btnExportInvoice = findViewById(R.id.btnExportInvoice);
     }
 
     private void displayOrderData() {
         if (currentOrder == null) return;
 
-        txtStoreName.setText("22 AUGUST COFFEE");
-        // txtStoreAddress & Phone giữ nguyên hardcode hoặc lấy từ config
-        
+        // Set cứng text Aura Coffee (Bold, size lớn đã chỉnh trong XML)
+        txtStoreName.setText("Aura Coffee");
+
+        // Hiển thị mã đơn
         txtBillId.setText("Mã hóa đơn: " + (currentOrder.getOrderId() != null ? currentOrder.getOrderId() : "---"));
-        txtTime.setText("Ngày đặt: " + currentOrder.getFormattedDate());
-        
+
+        // Hiển thị ngày giờ
+        txtTime.setText("Ngày: " + currentOrder.getFormattedDate());
+
+        // Hiển thị tên khách (nếu null/rỗng thì hiện "Khách lẻ")
         String customerName = currentOrder.getCustomerName();
         if (customerName == null || customerName.isEmpty()) customerName = "Khách lẻ";
         txtCustomer.setText("Khách hàng: " + customerName);
-        
-        // Nếu có email trong Order model thì set, không thì ẩn hoặc để trống
-        // Model Order hiện tại không thấy field email rõ ràng, có thể dùng userId hoặc bỏ qua
-        txtEmail.setVisibility(View.GONE); 
 
+        // Hiển thị địa chỉ giao hàng
+        String address = currentOrder.getShippingAddress();
+        if (address == null || address.isEmpty()) address = "---";
+        txtAddress.setText("Địa chỉ: " + address);
+
+        // Phương thức thanh toán
         txtPaymentMethod.setText("Thanh toán: " + (currentOrder.getPaymentMethod() != null ? currentOrder.getPaymentMethod() : "Tiền mặt"));
-        
+
+        // Format số tiền totalAmount
         double total = currentOrder.getTotalAmount();
         txtTotal.setText("Tổng cộng: " + decimalFormat.format(total));
     }
@@ -144,20 +144,19 @@ public class InvoiceActivity extends AppCompatActivity {
         }
     }
 
-    private void checkPermissionAndExportPDF() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            // Android 10+ không cần quyền WRITE_EXTERNAL_STORAGE cho MediaStore
-            exportOrderToPDF(billRootLayout);
-        } else {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) 
+    // Hàm xuất hóa đơn: Chụp màn hình và lưu ảnh
+    private void exportInvoice() {
+        // Kiểm tra quyền đối với Android < 10
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, 
-                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                         REQUEST_CODE_STORAGE_PERMISSION);
-            } else {
-                exportOrderToPDF(billRootLayout);
+                return;
             }
         }
+        saveBitmapToGallery();
     }
 
     @Override
@@ -165,69 +164,53 @@ public class InvoiceActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == REQUEST_CODE_STORAGE_PERMISSION) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                exportOrderToPDF(billRootLayout);
+                saveBitmapToGallery();
             } else {
-                Toast.makeText(this, "Cần quyền truy cập bộ nhớ để lưu PDF", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Cần quyền truy cập bộ nhớ để lưu hóa đơn", Toast.LENGTH_SHORT).show();
             }
         }
     }
 
-    private void exportOrderToPDF(View view) {
-        // Tạo Bitmap từ View
-        Bitmap bitmap = getBitmapFromView(view);
-        
-        // Tạo PDF Document
-        PdfDocument document = new PdfDocument();
-        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(bitmap.getWidth(), bitmap.getHeight(), 1).create();
-        PdfDocument.Page page = document.startPage(pageInfo);
-        
-        Canvas canvas = page.getCanvas();
-        canvas.drawBitmap(bitmap, 0, 0, null);
-        document.finishPage(page);
+    private void saveBitmapToGallery() {
+        Bitmap bitmap = getBitmapFromView(billRootLayout);
+        String fileName = "Invoice_" + (currentOrder != null ? currentOrder.getOrderId() : System.currentTimeMillis()) + ".jpg";
 
-        // Lưu file
-        String fileName = "Invoice_" + (currentOrder != null ? currentOrder.getOrderId() : System.currentTimeMillis()) + ".pdf";
-        
+        OutputStream fos;
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                // Lưu vào thư mục Download/Documents bằng MediaStore
-                android.content.ContentValues values = new android.content.ContentValues();
-                values.put(MediaStore.MediaColumns.DISPLAY_NAME, fileName);
-                values.put(MediaStore.MediaColumns.MIME_TYPE, "application/pdf");
-                values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS + "/CoffeeInvoices");
-                
-                Uri uri = getContentResolver().insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, values);
-                if (uri != null) {
-                    OutputStream outputStream = getContentResolver().openOutputStream(uri);
-                    document.writeTo(outputStream);
-                    if (outputStream != null) outputStream.close();
-                    Toast.makeText(this, "Đã lưu PDF vào thư mục Download/CoffeeInvoices", Toast.LENGTH_LONG).show();
+                ContentValues resolver = new ContentValues();
+                resolver.put(MediaStore.Images.Media.DISPLAY_NAME, fileName);
+                resolver.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
+                resolver.put(MediaStore.Images.Media.RELATIVE_PATH, Environment.DIRECTORY_PICTURES + "/CoffeeInvoices");
+
+                Uri imageUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, resolver);
+                if (imageUri != null) {
+                    fos = getContentResolver().openOutputStream(imageUri);
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+                    if (fos != null) fos.close();
+                    Toast.makeText(this, "Đã lưu hóa đơn vào thư viện ảnh", Toast.LENGTH_LONG).show();
                 }
             } else {
-                // Lưu theo cách cũ cho Android 9 trở xuống
-                File directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-                File file = new File(directory, fileName);
-                document.writeTo(new FileOutputStream(file));
-                Toast.makeText(this, "Đã lưu PDF tại: " + file.getAbsolutePath(), Toast.LENGTH_LONG).show();
+                String imagesDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString();
+                File image = new File(imagesDir, fileName);
+                fos = new FileOutputStream(image);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+                fos.close();
+                Toast.makeText(this, "Đã lưu hóa đơn tại: " + image.getAbsolutePath(), Toast.LENGTH_LONG).show();
             }
         } catch (IOException e) {
             e.printStackTrace();
-            Toast.makeText(this, "Lỗi khi lưu PDF: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Lỗi khi lưu ảnh: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
-
-        document.close();
     }
 
     private Bitmap getBitmapFromView(View view) {
-        // Measure và layout lại view để đảm bảo kích thước đúng
-        // (Chỉ cần thiết nếu view chưa hiển thị, ở đây view đã hiển thị trên màn hình)
         Bitmap returnedBitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(returnedBitmap);
-        // Vẽ background trắng nếu view trong suốt
         android.graphics.drawable.Drawable bgDrawable = view.getBackground();
-        if (bgDrawable != null) 
+        if (bgDrawable != null)
             bgDrawable.draw(canvas);
-        else 
+        else
             canvas.drawColor(Color.WHITE);
         view.draw(canvas);
         return returnedBitmap;
