@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="8dp"
+    android:gravity="center_vertical"
+    android:background="@android:color/white">
+
+    <ImageView
+        android:id="@+id/imgProduct"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_coffee"
+        android:scaleType="centerCrop"
+        android:layout_marginEnd="12dp"/>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvProductName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tên món"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/tvQuantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="x1"
+            android:textSize="12sp"
+            android:textColor="#757575"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvTotalPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0 đ"
+        android:textStyle="bold"
+        android:textColor="#4E342E"/>
+
+</LinearLayout>
