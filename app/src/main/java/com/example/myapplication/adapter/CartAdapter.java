@@ -4,9 +4,9 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.ItemCartBinding;
+import com.bumptech.glide.Glide;
 import com.example.myapplication.model.CartItem;
 import java.text.NumberFormat;
 import java.util.List;
@@ -60,28 +60,22 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         }
 
         public void bind(final CartItem cartItem, final CartItemListener listener) {
-            if (cartItem == null) {
-                return;
-            }
+            if (cartItem == null) return;
 
-            binding.tvCartItemName.setText(cartItem.getProductName() != null ? cartItem.getProductName() : "Sản phẩm lỗi");
+            binding.tvCartItemName.setText(cartItem.getProductName());
             binding.tvQuantity.setText(String.valueOf(cartItem.getQuantity()));
 
-            // New image loading logic
-            if (cartItem.getImageResId() != 0) {
-                Glide.with(itemView.getContext())
-                        .load(cartItem.getImageResId())
-                        .placeholder(R.drawable.bg_placeholder)
-                        .error(R.drawable.bg_placeholder)
+            String imgUrl = cartItem.getImageUrl();
+            if (imgUrl != null && !imgUrl.isEmpty()) {
+                Glide.with(binding.getRoot().getContext())
+                        .load(imgUrl)
+                        .placeholder(R.drawable.ic_coffee)
+                        .error(R.drawable.ic_coffee)
                         .into(binding.ivCartItemImage);
-            } else if (cartItem.getImageUrl() != null && !cartItem.getImageUrl().isEmpty()) {
-                Glide.with(itemView.getContext())
-                        .load(cartItem.getImageUrl())
-                        .placeholder(R.drawable.bg_placeholder)
-                        .error(R.drawable.bg_placeholder)
-                        .into(binding.ivCartItemImage);
+            } else if (cartItem.getImageResId() != 0) {
+                binding.ivCartItemImage.setImageResource(cartItem.getImageResId());
             } else {
-                binding.ivCartItemImage.setImageResource(R.drawable.bg_placeholder);
+                binding.ivCartItemImage.setImageResource(R.drawable.ic_coffee);
             }
 
             NumberFormat formatter = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
@@ -102,21 +96,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             binding.tvCartItemOptions.setText(optionsText.toString());
 
             if(listener != null) {
-                binding.btnIncreaseQuantity.setOnClickListener(v -> {
-                    if (getAdapterPosition() != RecyclerView.NO_POSITION) {
-                        listener.onIncrease(cartItem);
-                    }
-                });
-                binding.btnDecreaseQuantity.setOnClickListener(v -> {
-                    if (getAdapterPosition() != RecyclerView.NO_POSITION) {
-                        listener.onDecrease(cartItem);
-                    }
-                });
-                binding.btnRemoveItem.setOnClickListener(v -> {
-                    if (getAdapterPosition() != RecyclerView.NO_POSITION) {
-                        listener.onRemove(cartItem);
-                    }
-                });
+                binding.btnIncreaseQuantity.setOnClickListener(v -> listener.onIncrease(cartItem));
+                binding.btnDecreaseQuantity.setOnClickListener(v -> listener.onDecrease(cartItem));
+                binding.btnRemoveItem.setOnClickListener(v -> listener.onRemove(cartItem));
             }
         }
     }

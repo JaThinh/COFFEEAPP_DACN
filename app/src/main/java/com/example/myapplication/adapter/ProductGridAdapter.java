@@ -8,11 +8,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.CenterCrop;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.example.myapplication.R;
 import com.example.myapplication.model.ProductGrid;
+import com.bumptech.glide.Glide;
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
@@ -75,44 +73,40 @@ public class ProductGridAdapter extends RecyclerView.Adapter<ProductGridAdapter.
         public void bind(final ProductGrid product, final OnProductGridClickListener listener) {
             productName.setText(product.getName());
             
-            // Format price to currency
             NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
-            productPrice.setText(currencyFormat.format(product.getPrice()));
+            productPrice.setText(currencyFormat.format(product.getPriceAsDouble()));
             
             favoriteButton.setSelected(product.isFavorite());
 
-            // Sử dụng Glide để load ảnh mượt mà hơn và tự động resize
-            Glide.with(itemView.getContext())
-                    .load(product.getImageResId())
-                    .transform(new CenterCrop(), new RoundedCorners(16)) // Bo góc đẹp mắt
-                    .placeholder(R.drawable.ic_image_placeholder) // Ảnh chờ nếu load chậm
-                    .error(R.drawable.product_image_error) // Ảnh lỗi
-                    .into(productImage);
+            // Try load remote URL first, then fallback to drawable resource, otherwise placeholder
+            String imageUrl = product.getImageUrl();
+            if (imageUrl != null && !imageUrl.isEmpty()) {
+                Glide.with(itemView.getContext())
+                        .load(imageUrl)
+                        .placeholder(R.drawable.ic_coffee)
+                        .error(R.drawable.ic_coffee)
+                        .into(productImage);
+            } else if (product.getImageResId() != 0) {
+                productImage.setImageResource(product.getImageResId());
+            } else {
+                productImage.setImageResource(R.drawable.ic_coffee);
+            }
 
             itemView.setOnClickListener(v -> {
                 if (listener != null) {
-                    int position = getAdapterPosition();
-                    if (position != RecyclerView.NO_POSITION) {
-                        listener.onProductClick(product);
-                    }
+                    listener.onProductClick(product);
                 }
             });
 
             addToCartButton.setOnClickListener(v -> {
                 if (listener != null) {
-                    int position = getAdapterPosition();
-                    if (position != RecyclerView.NO_POSITION) {
-                        listener.onAddToCartClick(product, v);
-                    }
+                    listener.onAddToCartClick(product, v);
                 }
             });
 
             favoriteButton.setOnClickListener(v -> {
                 if (listener != null) {
-                    int position = getAdapterPosition();
-                    if (position != RecyclerView.NO_POSITION) {
-                        listener.onFavoriteClick(product, position);
-                    }
+                    listener.onFavoriteClick(product, getAdapterPosition());
                 }
             });
         }

@@ -44,7 +44,11 @@ public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.
     public void onBindViewHolder(@NonNull CartProductViewHolder holder, int position) {
         CartProduct item = cartItems.get(position);
 
-        holder.productImage.setImageResource(item.getImageResId());
+        if (item.getImageResId() != 0) {
+            holder.productImage.setImageResource(item.getImageResId());
+        } else {
+            holder.productImage.setImageResource(R.drawable.ic_coffee);
+        }
         holder.productName.setText(item.getName());
         holder.productOptions.setText(item.getOptions());
         holder.quantity.setText(String.valueOf(item.getQuantity()));
